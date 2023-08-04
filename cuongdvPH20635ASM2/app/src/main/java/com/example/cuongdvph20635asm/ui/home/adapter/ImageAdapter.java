@@ -32,7 +32,6 @@ public class ImageAdapter extends RecyclerView.Adapter<ImageAdapter.ImageViewHol
         notifyDataSetChanged();
     }
 
-    // Hàm kiểm tra xem chuỗi có dạng URL hay không
     private boolean isUrl(String input) {
         return input != null && input.startsWith("http");
     }
@@ -47,7 +46,6 @@ public class ImageAdapter extends RecyclerView.Adapter<ImageAdapter.ImageViewHol
     @Override
     public void onBindViewHolder(@NonNull ImageViewHolder holder, int position) {
         String imageUrl = imageUrls.get(position).getUrl();
-        // Kiểm tra nếu imageSource là URL
         if (isUrl(imageUrl)) {
             Picasso.get()
                     .load(imageUrl)
@@ -57,7 +55,6 @@ public class ImageAdapter extends RecyclerView.Adapter<ImageAdapter.ImageViewHol
                     .centerCrop()
                     .into(holder.imageView);
         }
-        // Nếu không, giả sử imageUrl là chuỗi Base64
         else {
             byte[] imageBytes = Base64.decode(imageUrl, Base64.DEFAULT);
             Bitmap decodedImage = BitmapFactory.decodeByteArray(imageBytes, 0, imageBytes.length);

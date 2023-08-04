@@ -19,7 +19,6 @@
         android:padding="16dp">
 
         <com.google.android.material.textfield.TextInputLayout
-            style="@style/NimpeInputLayoutLogin"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             >
@@ -28,11 +27,9 @@
             android:imeActionLabel=""
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="Title"
             android:textSize="18sp"/>
         </com.google.android.material.textfield.TextInputLayout>
         <com.google.android.material.textfield.TextInputLayout
-            style="@style/NimpeInputLayoutLogin"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="16dp"
@@ -42,7 +39,7 @@
                 android:layout_height="wrap_content"
                 android:id="@+id/tv_copyright"
                 android:maxLines="4"
-                android:hint="Copyright"/>
+                />
         </com.google.android.material.textfield.TextInputLayout>
 
         <LinearLayout
@@ -55,13 +52,14 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="Update" />
+
             <Button
-                android:backgroundTint="#9CD32F2F"
-                android:textColor="@color/white"
                 android:id="@+id/btn_delete"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Delete" />
+                android:backgroundTint="#9CD32F2F"
+                android:text="Delete"
+                android:textColor="@color/white" />
 
         </LinearLayout>
     </LinearLayout>

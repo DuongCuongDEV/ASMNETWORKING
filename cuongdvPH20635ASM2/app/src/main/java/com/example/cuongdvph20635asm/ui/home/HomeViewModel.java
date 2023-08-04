@@ -36,57 +36,40 @@ import io.reactivex.rxjava3.disposables.Disposable;
 import io.reactivex.rxjava3.schedulers.Schedulers;
 
 public class HomeViewModel extends ViewModel {
-    //khơi tao Disposable
     Disposable mDisposable;
-    //khai báo biến kiểm tra xem đã gọi api lấy list ảnh chưa
      boolean isImagesFetched = true;
     //key api
     private static final String API_KEY  = "92sahtcXFlcebDYwcbterGuS8EGGWMBQs2K4ikf8";
-    //khai bao list ngay lay anh
     List<String> dateArray;
-    //khai bao list lưu ảnh
     List<Data> imageResponseArray=new ArrayList<>();
-    //khai báo list chuỗi ảnh sau chuyển đổi
     List<String> base64Arr=new ArrayList<>();
-    //đối tượng livedata của ảnh sau khi được chuyển đổi
     MutableLiveData<String> base64LiveData = new MutableLiveData<>();
-    // đối tượng livedata của ảnh trả về từ nasa
     MutableLiveData<Data> mImageResponse=new MutableLiveData<>();
-    // đối tượng trung gian giữa viewmodel và apinasa
     private ApiNasaRepository nasaRepository;
-    // đối tượng trung gian giữa viewmodel và myapi
     private MyApiRepository myApiRepository;
-    // biến mRequest sử dụng khi post data ảnh lên my server
     Data mRequest;
 
-    //hàm tạo của viewmodel
     public HomeViewModel(ApiNasaRepository nasaRepository, MyApiRepository myApiRepository) {
         this.nasaRepository=nasaRepository;
         this.myApiRepository=myApiRepository;
     }
 
-    //--GET----------------------------------------------------------------------------------------
     public void getImgFromNasa() {
         if (isImagesFetched) {
-            // Các bước lấy hình ảnh từ NASA tại đây
-            // ...
-            isImagesFetched = false; // Đánh dấu đã lấy hình ảnh từ NASA
+            isImagesFetched = false;
             LocalDate startDate = null;
             LocalDate endDate = null;
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-                startDate = LocalDate.of(2023, 6, 21);
-                endDate = LocalDate.of(2023, 7, 21);
+                startDate = LocalDate.of(2023, 2, 1);
+                endDate = LocalDate.of(2023, 3, 1);
             }
-            //tao mang ngay lay anh tu 21/6 -21/7
             dateArray = createArray(startDate, endDate);
-            //thuc hien vong for call api lay anh tung ngay tu 21/6 -21/7
             for (String date : dateArray) {
                 callApiImageFromNasa(API_KEY, date);
             }
         }
     }
 
-    //hàm tạo mảng ngày lấy ảnh
     public List<String> createArray(LocalDate startDate, LocalDate endDate) {
         List<String> dateArray = new ArrayList<>();
         LocalDate currentDate = startDate;
@@ -100,21 +83,18 @@ public class HomeViewModel extends ViewModel {
         return dateArray;
     }
 
-    //ham callAPI get ảnh từ nasa
     public void callApiImageFromNasa(String key,String date) {
     nasaRepository.callAPIGetImgFromNasa(key,date)
             .subscribeOn(Schedulers.io())
-            .observeOn(AndroidSchedulers.mainThread()) //dang ky luong nhan du lieu tai mainThread
+            .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(new Observer<Data>() {
                     @Override
                     public void onSubscribe( Disposable d) {
-                        //nhan ve doi tuong Disposable
                         mDisposable = d;
                     }
 
                     @Override
-                    public void onNext( Data imageResponse) {//noi nhan phan hoi
-                        //luu link anh tra ve vao mList
+                    public void onNext( Data imageResponse) {
                             mImageResponse.postValue(imageResponse);
                             imageResponseArray.add(imageResponse);
                             convertImageToBase64(imageResponse);
@@ -127,12 +107,11 @@ public class HomeViewModel extends ViewModel {
                     }
 
                     @Override
-                    public void onComplete() {//khi hoan thanh
+                    public void onComplete() {
                     }
                 });
     }
 
-    //hàm chuyển ảnh sang base64
     private void convertImageToBase64(Data image) {
         Context context = MyApplication.getInstance().getApplicationContext();
 
@@ -142,20 +121,15 @@ public class HomeViewModel extends ViewModel {
                 .into(new CustomTarget<Bitmap>() {
                     @Override
                     public void onResourceReady(@NonNull Bitmap resource, @Nullable Transition<? super Bitmap> transition) {
-                        // Chuyển đổi Bitmap thành dạng Base64
                         String base64Image = convertBitmapToBase64(resource);
-                        // Lưu vào mảng base64ImagesList
                         base64Arr.add(base64Image);
-                        // Cập nhật LiveData nếu cần
                         base64LiveData.setValue(base64Image);
                     }
                     @Override
                     public void onLoadCleared(@Nullable Drawable placeholder) {
-                        // Xử lý khi ảnh bị xóa khỏi bộ nhớ cache
                     }
                 });
     }
-    //hàm chuyển từ bipmap sang chuổi báe64
     public String convertBitmapToBase64(Bitmap bitmap) {
         ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
         bitmap.compress(Bitmap.CompressFormat.JPEG, 30, byteArrayOutputStream);
@@ -163,15 +137,11 @@ public class HomeViewModel extends ViewModel {
         return Base64.encodeToString(byteArray, Base64.DEFAULT);
     }
 
-    //--POST----------------------------------------------------------------------------------------
-
-    //duyệt mảng ảnh base64 được truyền vào và thực hiện post lần lượt lên myserver
     public void postListBase64(List<String> urls) {
         for (int i = 0; i < imageResponseArray.size(); i++) {
             postOne(i,urls.get(i));
         }
     }
-    //hàm post dữ liệu 1 ảnh lên myserver
     private void postOne(int i,String urlBase64) {
         mRequest = new Data(
                 imageResponseArray.get(i).getCopyright(),
@@ -208,7 +178,6 @@ public class HomeViewModel extends ViewModel {
     }
 
 
-    //viết custom lại factory cho viewmodel
     public static class HomeViewModelFactory implements ViewModelProvider.Factory {
 
         @NonNull

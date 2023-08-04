@@ -11,7 +11,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:gravity="center"
-        android:text="Image from Nasa"
+        android:text="Image"
         android:textSize="30sp"
         android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"
@@ -38,23 +38,17 @@
         app:layout_constraintTop_toBottomOf="@+id/progressbar"
         app:spanCount="3" />
 
-    <com.google.android.material.floatingactionbutton.FloatingActionButton
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="200dp"
-        android:layout_marginRight="20dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        android:src="@drawable/baseline_download_24"
-        android:id="@+id/btn_getImg"/>
+
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
         android:id="@+id/btn_postImg"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:src="@drawable/baseline_upload_24"
-        android:layout_margin="20dp"
-        app:layout_constraintBottom_toTopOf="@+id/btn_getImg"
-        app:layout_constraintEnd_toEndOf="parent" />
+        android:layout_marginBottom="40dp"
+        android:layout_marginRight="50dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:backgroundTint="@color/primary_color"
+        />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

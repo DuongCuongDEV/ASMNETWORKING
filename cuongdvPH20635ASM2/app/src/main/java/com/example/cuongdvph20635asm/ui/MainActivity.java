@@ -12,11 +12,8 @@ import com.example.cuongdvph20635asm.databinding.ActivityMainBinding;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 public class MainActivity extends AppCompatActivity {
-    //khai bao viewBinding
     private ActivityMainBinding binding;
-    //khai bao view bottomNavigationView
     BottomNavigationView bottomNavigationView;
-    //khai bao navController (doi tuong dieu huong)
     NavController navController;
     @Override
     protected void onCreate(Bundle savedInstanceState) {

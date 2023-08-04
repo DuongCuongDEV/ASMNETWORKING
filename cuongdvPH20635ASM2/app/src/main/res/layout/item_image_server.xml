@@ -43,7 +43,7 @@
             android:layout_width="match_parent"
             android:layout_height="20dp"
             android:text="12000 d"
-            android:textColor="@color/primary_color"
+            android:textColor="@color/black"
             android:textSize="18sp"
             android:textStyle="bold" />
         <LinearLayout
@@ -51,10 +51,7 @@
             android:layout_width="match_parent"
             android:layout_marginTop="8dp"
             android:layout_height="wrap_content">
-            <androidx.appcompat.widget.AppCompatImageView
-                android:layout_width="20dp"
-                android:layout_height="20dp"
-                android:src="@drawable/baseline_access_time_24"/>
+
             <com.google.android.material.textview.MaterialTextView
                 android:id="@+id/tv_time"
                 android:layout_marginStart="4dp"
