@@ -1,0 +1,9 @@
+<resources>
+    <string name="app_name">cuongdvph20635 Assignment</string>
+    <string name="tv_introduce_fr1">ViewModel, LiveData, Navigation component from Android Jetpack</string>
+    <string name="tv_introduce_fr2">Sử dụng Rxjava3 kết hợp Retrofit 2 để call api và giải quyết bất đồng bộ</string>
+    <string name="tv_introduce_fr3">Sử dụng Firebase Authentication\n
+    Sử dụng Glide để hiển thị hình ảnh từ url</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+</resources>

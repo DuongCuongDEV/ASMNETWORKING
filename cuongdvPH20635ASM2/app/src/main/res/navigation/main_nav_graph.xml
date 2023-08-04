@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/main_nav_graph"
+    app:startDestination="@id/homeFragment">
+
+    <fragment
+        android:id="@+id/homeFragment"
+        android:name="com.example.cuongdvph20635asm.ui.home.HomeFragment"
+        android:label="fragment_home"
+        tools:layout="@layout/fragment_home" />
+    <fragment
+        android:id="@+id/repositoryFragment"
+        android:name="com.example.cuongdvph20635asm.ui.repository.RepositoryFragment"
+        android:label="fragment_repository"
+        tools:layout="@layout/fragment_repository" >
+        <action
+            android:id="@+id/action_repositoryFragment_to_detailImageFragment"
+            app:destination="@id/detailImageFragment" />
+    </fragment>
+    <dialog
+        android:id="@+id/detailImageFragment"
+        android:name="com.example.cuongdvph20635asm.ui.repository.DetailImageFragment"
+        android:label="DetailImageFragment"
+        tools:layout="@layout/fragment_detail_image">
+        <argument
+            android:name="dataArg"
+            app:argType="com.example.cuongdvph20635asm.data.model.Data" />
+        <action
+            android:id="@+id/action_detailImageFragment_to_repositoryFragment"
+            app:destination="@id/repositoryFragment" />
+    </dialog>
+</navigation>
